@@ -37,9 +37,9 @@ Hasta ahora tenemos el escenario levantado (spark está esperando a que el model
   - Usuario: _"admin"_
   - Contraseña: _"1234"_
   
-Una vez dentro, ejecutar el DAG: _"agile_data_science_batch_prediction_model_training"_. 
+Una vez dentro, ejecutar el DAG con trigger DAG: _"agile_data_science_batch_prediction_model_training"_. 
 
-![imagen](https://user-images.githubusercontent.com/94795264/142774185-ff89fdfc-150a-482c-b451-ccb0fbede41c.png)
+![Selección_005](https://user-images.githubusercontent.com/94795264/142774445-20238ae6-1a67-4a4f-b671-d4e97c639919.png)
 
 Tarda un poco, se recomienda chequear el estatus en el tree view. Cuando ya esté en verde oscuro, como se muestra en la figura, ya estará entrenado y se podrá pasar al paso 5.
 
