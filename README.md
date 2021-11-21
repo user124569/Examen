@@ -26,7 +26,9 @@ Con tree -L 1 se debería alcanzar la siguiente estructura:
   - Ejecutar el script de configuración: bash buildAllDockers.sh
 
 ## 3. Levantar el servicio.
-  - Una vez creadas las imagenes, se ejecuta el script orders.sh que levanta el servicio y hace que airflow baje los datos necesarios para el entrenamiento y mongo importa los datos en la base de datos.
+  - Una vez creadas las imagenes, se ejecuta el script:bash orders.sh
+  
+  Se levanta el servicio y hace que airflow baje los datos necesarios para el entrenamiento y mongo importa los datos en la base de datos.
 
 Hasta ahora tenemos el escenario levantado (spark está esperando a que el modelo esté entrenado). Para ello, es necesario entrar en airflow y lanzar el DAG.
 
