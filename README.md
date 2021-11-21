@@ -23,7 +23,7 @@ Con tree -L 1 se debería alcanzar la siguiente estructura:
 ![Selección_004](https://user-images.githubusercontent.com/94795264/142773618-b86e0c9b-4acf-4e23-b2bc-428512827208.png)
     
 ## 2. Construir las imagenes.
-  - Ejecutar el script de configuración bash buidAllDockers.sh
+  - Ejecutar el script de configuración: bash buildAllDockers.sh
 
 ## 3. Levantar el servicio.
   - Una vez creadas las imagenes, se ejecuta el script orders.sh que levanta el servicio y hace que airflow baje los datos necesarios para el entrenamiento y mongo importa los datos en la base de datos.
