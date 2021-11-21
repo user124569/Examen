@@ -15,17 +15,15 @@ Las mejoras que se han desarrollado son:
 
 ## 1.Clonar este repositorio y construir .tgzs de kafka y spark con las versiones propuestas.
 
-- Ejecutar script _buildTgzs.sh_
+- cd Examen
+- Ejecutar script: bash buildTgzs.sh
 
-Obtenemos: 
+Con tree -L 1 se debería alcanzar la siguiente estructura:
 
-![repo tree](https://user-images.githubusercontent.com/17493646/142735849-2668712d-c077-4601-8692-87adafefa14c.png)
-
+![Selección_004](https://user-images.githubusercontent.com/94795264/142773618-b86e0c9b-4acf-4e23-b2bc-428512827208.png)
     
-_Nota: vol es el volumen para compartir los datos del entrenamiento entre Airflow-Spark-MongodB. Spark necesita del entrenaiento de Airflow para ofrecer su servicio._
-
 ## 2. Construir las imagenes.
-  - Ejecutar el script de configuración _buidAllDockers.sh_
+  - Ejecutar el script de configuración bash buidAllDockers.sh
 
 ## 3. Levantar el servicio.
   - Una vez creadas las imagenes, se ejecuta el script orders.sh que levanta el servicio y hace que airflow baje los datos necesarios para el entrenamiento y mongo importa los datos en la base de datos.
@@ -43,6 +41,7 @@ Hasta ahora tenemos el escenario levantado (spark está esperando a que el model
 
   Finalmente y una vez que haya acabado el DAG spark ya estará listo y se podrán hacer predicciones, para ello, entra en:  http://localhost:5000/flights/delays/predict_kafka
   
+  _Nota: para detener el escenario se proporciona el script stopAll.sh_
 # Despliegue del escenario en Google Cloud:
 
 1. Crear una máquina con Ubuntu 20.04.
