@@ -33,17 +33,26 @@ Con tree -L 1 se debería alcanzar la siguiente estructura:
 Hasta ahora tenemos el escenario levantado (spark está esperando a que el modelo esté entrenado). Para ello, es necesario entrar en airflow y lanzar el DAG.
 
 ## 4. Entrenar el modelo con Airflow:
- En http://localhost:8080/home, aparecerá el interfaz de login de airflow:
+ En http://localhost:8080/home, aparecerá el interfaz de login de airflow (puede tardar un poquito en responder):
   - Usuario: _"admin"_
   - Contraseña: _"1234"_
   
-Una vez dentro, ejecutar el DAG. (Tarda un poco, se recomienda chequear el estatus en el tree view). Cuando ya esté en verde oscuro, como se muestra en la figura, ya estará entrenado.
+Una vez dentro, ejecutar el DAG: _"agile_data_science_batch_prediction_model_training"_. 
+
+![imagen](https://user-images.githubusercontent.com/94795264/142774185-ff89fdfc-150a-482c-b451-ccb0fbede41c.png)
+
+Tarda un poco, se recomienda chequear el estatus en el tree view. Cuando ya esté en verde oscuro, como se muestra en la figura, ya estará entrenado y se podrá pasar al paso 5.
+
+![imagen](https://user-images.githubusercontent.com/94795264/142774294-d8ecc501-d125-4980-a419-1813c1f8dc89.png)
   
 ## 5.Hacer predicciones.
 
-  Finalmente y una vez que haya acabado el DAG spark ya estará listo y se podrán hacer predicciones, para ello, entra en:  http://localhost:5000/flights/delays/predict_kafka
+  Finalmente y una vez que haya acabado el DAG, Spark ya estará listo y se podrán hacer predicciones, para ello, entra en:  http://localhost:5000/flights/delays/predict_kafka
+  
+  ![imagen](https://user-images.githubusercontent.com/94795264/142774324-ceb32abf-15b6-41a7-85e8-cc27edf763dc.png)
   
   _Nota: para detener el escenario se proporciona el script stopAll.sh_
+  
 # Despliegue del escenario en Google Cloud:
 
 1. Crear una máquina con Ubuntu 20.04.
