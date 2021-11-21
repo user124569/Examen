@@ -26,7 +26,7 @@ Con tree -L 1 se debería alcanzar la siguiente estructura:
   - Ejecutar el script de configuración: bash buildAllDockers.sh
 
 ## 3. Levantar el servicio.
-  - Una vez creadas las imagenes, se ejecuta el script:bash orders.sh
+  - Una vez creadas las imagenes, se ejecuta el script: bash orders.sh
   
   Se levanta el servicio y hace que airflow baje los datos necesarios para el entrenamiento y mongo importa los datos en la base de datos.
 
@@ -37,8 +37,8 @@ Hasta ahora tenemos el escenario levantado (spark está esperando a que el model
   - Usuario: _"admin"_
   - Contraseña: _"1234"_
   
-  Una vez dentro, ejecutar el DAG. (Tarda un poco, se recomienda chequear el estatus en el tree view)
- 
+Una vez dentro, ejecutar el DAG. (Tarda un poco, se recomienda chequear el estatus en el tree view). Cuando ya esté en verde oscuro, como se muestra en la figura, ya estará entrenado.
+  
 ## 5.Hacer predicciones.
 
   Finalmente y una vez que haya acabado el DAG spark ya estará listo y se podrán hacer predicciones, para ello, entra en:  http://localhost:5000/flights/delays/predict_kafka
