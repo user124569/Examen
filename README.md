@@ -18,7 +18,7 @@ Las mejoras que se han desarrollado son:
 - cd Examen
 - Ejecutar script: bash buildTgzs.sh
 
-Con tree -L 1 se debería alcanzar la siguiente estructura:
+Ejecutando tree -L 1 se debería alcanzar la siguiente estructura:
 
 ![Selección_004](https://user-images.githubusercontent.com/94795264/142773618-b86e0c9b-4acf-4e23-b2bc-428512827208.png)
     
