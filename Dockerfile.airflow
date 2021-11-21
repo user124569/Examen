@@ -1,0 +1,39 @@
+FROM ubuntu:20.04
+
+ENV TZ=Europe/Madrid
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt-get update
+RUN apt-get install gcc libpq-dev -y
+RUN apt-get install python3-dev python3-pip python3-venv python3-wheel -y
+RUN apt-get install openjdk-11-jdk curl -y
+
+COPY ./spark-3.1.2-bin-hadoop3.2.tgz /tmp
+
+COPY practica_big_data_2019/requirements.txt /tmp/
+COPY practica_big_data_2019/resources/airflow /opt/airflow
+
+COPY practica_big_data_2019/resources/download_data.sh /opt/airflow/resources/download_data.sh
+COPY practica_big_data_2019/resources/train_spark_mllib_model.py /opt/airflow/resources/train_spark_mllib_model.py
+
+ENV PROJECT_HOME=/opt/airflow
+ENV AIRFLOW_HOME=/opt/airflow
+ENV SPARK_HOME=/opt/spark-3.1.2-bin-hadoop3.2
+
+RUN mkdir /opt/airflow/data
+RUN cd /opt; tar xzf /tmp/spark-3.1.2-bin-hadoop3.2.tgz
+RUN pip3 install wheel
+RUN cd /opt/airflow ; pip3 install -r requirements.txt -c constraints.txt
+RUN pip3 install -r /tmp/requirements.txt 
+
+RUN mkdir $AIRFLOW_HOME/dags
+RUN mkdir $AIRFLOW_HOME/logs
+RUN mkdir $AIRFLOW_HOME/plugins
+
+RUN cp /opt/airflow/setup.py $AIRFLOW_HOME/dags
+ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
+
+COPY ./initAirflow.sh /tmp
+COPY ./runAirflow.sh /tmp
+
+RUN chmod +x /tmp/initAirflow.sh /tmp/runAirflow.sh
+CMD ["bash", "-c", "/tmp/initAirflow.sh;/tmp/runAirflow.sh"]

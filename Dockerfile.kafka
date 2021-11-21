@@ -1,0 +1,19 @@
+FROM ubuntu:20.04
+
+RUN apt-get update
+RUN apt install openjdk-11-jdk -y
+
+COPY ./kafka_2.12-3.0.0.tgz /tmp
+
+RUN mkdir -p /opt; cd /opt; tar -xzf /tmp/kafka_2.12-3.0.0.tgz;cd kafka_2.12-3.0.0;
+RUN rm -f /tmp/kafka_2.12-3.0.0.tgz
+CMD cd /opt/kafka_2.12-3.0.0; bin/zookeeper-server-start.sh config/zookeeper.properties &  \
+    bin/kafka-server-start.sh config/server.properties & \
+    bin/kafka-topics.sh --create \
+                        --bootstrap-server localhost:9092 \
+                        --replication-factor 1 \
+                        --partitions 1 \
+                        --topic flight_delay_classification_request ; \
+    bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 \
+                                 --topic flight_delay_classification_request \
+                                 --from-beginning

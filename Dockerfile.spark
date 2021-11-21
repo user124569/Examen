@@ -1,0 +1,30 @@
+FROM ubuntu:20.04
+
+ENV TZ=Europe/Madrid
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt-get update
+RUN apt-get install gcc libpq-dev -y
+RUN apt-get install python3-dev python3-pip python3-venv python3-wheel -y
+RUN apt-get install openjdk-11-jdk curl -y
+
+COPY ./spark-3.1.2-bin-hadoop3.2.tgz /tmp
+COPY ./sbt-1.5.5.tgz /tmp
+
+COPY practica_big_data_2019/requirements.txt /tmp/
+COPY practica_big_data_2019/flight_prediction/ /opt/practicas/flight_prediction
+
+RUN mkdir /opt/practicas/data
+RUN cd /opt; tar xzf /tmp/spark-3.1.2-bin-hadoop3.2.tgz; tar -xzf /tmp/sbt-1.5.5.tgz
+RUN pip3 install wheel
+RUN pip3 install -r /tmp/requirements.txt 
+
+ENV PATH=$PATH:/opt/sbt/bin
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV SPARK_HOME=/opt/spark-3.1.2-bin-hadoop3.2
+
+RUN cd /opt/practicas/flight_prediction;sbt compile; sbt package
+
+CMD cd /opt/practicas/flight_prediction; /opt/spark-3.1.2-bin-hadoop3.2/bin/spark-submit \ 
+                                         --class es.upm.dit.ging.predictor.MakePrediction \
+                                         --packages org.mongodb.spark:mongo-spark-connector_2.12:3.0.1,org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2 \ 
+                                         /opt/practicas/flight_prediction/target/scala-2.12/flight_prediction_2.12-0.1.jar

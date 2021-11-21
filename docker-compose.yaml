@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+
+  miFlask: 
+    image: bdfi/flask:2.0
+    restart: on-failure:120
+    ports:
+          - "5000:5000"
+
+  miKafka: 
+    image: bdfi/kafka:2.0
+    restart: on-failure:120
+    ports:
+          - "9092:9092"
+  miMongo: 
+    image: mongo:3.6.8
+    volumes:
+      - ./vol/data:/opt/practicas/data
+      - ./vol/models:/opt/practicas/models
+    restart: on-failure:150
+    ports:
+          - "27017:27017"
+
+  miSpark: 
+    image: bdfi/spark:2.0
+    volumes:
+      - ./vol/data:/opt/practicas/data
+      - ./vol/models:/opt/practicas/models
+    restart: on-failure:150
+
+  miAirflow: 
+    image: bdfi/airflow:2.0
+    volumes:
+      - ./vol/data:/opt/airflow/data
+      - ./vol/models:/opt/airflow/models
+    restart: on-failure:150
+    ports:
+          - "8080:8080"
+
+volumes:
+  vol-data: {}
+  vol-models: {}
